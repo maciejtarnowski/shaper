@@ -13,6 +13,7 @@ public:
     void printChar(char character, int x, int y);
     float getFontRatio();
     void printHelp();
+    void clear();
 
 private:
     void gotoXY(int x, int y);

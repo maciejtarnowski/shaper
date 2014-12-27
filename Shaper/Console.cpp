@@ -63,3 +63,8 @@ void Console::printHelp()
     cout << "strzalki - ruch" << "\t\t" << "+ / - - zmiana rozmiaru figury" << "\t\t" << "ESC - wyjscie";
     SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
+
+void Console::clear()
+{
+    system("cls");
+}

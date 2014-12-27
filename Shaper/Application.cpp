@@ -9,7 +9,7 @@ Application::Application()
     this->shape.setInitialSize(this->askForInitialSize());
     this->shape.setCharacter(this->selectedChar);
 
-    system("cls");
+    console.clear();
 
     this->renderShape(); // initial render
     this->console.printHelp(); // print bottom help row
@@ -22,7 +22,7 @@ void Application::run()
             break;
         }
 
-        system("cls");
+        console.clear();
 
         this->renderShape();
         this->console.printHelp();
@@ -31,7 +31,7 @@ void Application::run()
 
 char Application::askForCharToDraw()
 {
-    system("cls");
+    console.clear();
     char selectedChar = '&';
     cout << "Podaj znak do narysowania figury: ";
     cin >> selectedChar;
@@ -40,7 +40,7 @@ char Application::askForCharToDraw()
 
 int Application::askForInitialSize()
 {
-    system("cls");
+    console.clear();
     int selectedSize = 1;
     cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
     cin >> selectedSize;
