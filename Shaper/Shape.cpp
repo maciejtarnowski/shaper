@@ -32,7 +32,7 @@ void Shape::setCharacter(char character)
 // move shape by vector
 void Shape::move(int deltaX, int deltaY)
 {
-    if (!this->willCollide(deltaX, deltaY, this->size)) {
+    if (!this->willCollide(deltaX, deltaY, 0)) {
         this->currentPosX += deltaX;
         this->currentPosY += deltaY;
     }
@@ -43,7 +43,7 @@ void Shape::resize(int delta)
     if (this->size + delta < 1 || this->size + delta > 15) {
         return;
     }
-    if (!this->willCollide(this->currentPosX, this->currentPosY, this->size + delta)) {
+    if (!this->willCollide(this->currentPosX, this->currentPosY, delta)) {
         this->size += delta;
     }
 }
@@ -59,12 +59,6 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
     if (this->currentPosX + deltaX < 0 || this->currentPosY + deltaY < 0) {
         return true;
     }
-
-    cout << endl << console.getHeight() << " " << console.getWidth();
-
-    cout << endl << this->currentPosY << " " << this->currentPosX;
-
-    cout << endl << this->currentPosY + deltaY + height << " " << this->currentPosX + deltaX + width;
 
     return !(console.getHeight() >= this->currentPosY + deltaY + height && console.getWidth() >= this->currentPosX + deltaX + width);
 }
