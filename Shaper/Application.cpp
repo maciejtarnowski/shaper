@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// application constructor, initializes app
 Application::Application()
 {
     console.updateSize();
@@ -19,13 +20,13 @@ void Application::run()
 {
     while (true) {
         if (!this->handleKeyPress(_getch())) {
-            break;
+            break; // false from handleKeyPress stops the app
         }
 
         console.clear();
 
-        this->renderShape();
-        this->console.printHelp();
+        this->renderShape(); // initial render of the shape
+        this->console.printHelp(); // initial help print
     }
 }
 
@@ -52,10 +53,10 @@ bool Application::handleKeyPress(char key)
             this->shape.move(1, 0);
             break;
         case PLUS:
-            this->shape.resize(1);
+            this->shape.resize(1); // add 1 to size
             break;
         case MINUS:
-            this->shape.resize(-1);
+            this->shape.resize(-1); // substract 1 from size
             break;
         case ESC:
             return false; // false means stop the app
@@ -78,13 +79,13 @@ char Application::askForCharToDraw()
 int Application::askForInitialSize()
 {
     console.clear();
-    int selectedSize = 1;
+    int selectedSize = 1; // default value is 1
     cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
     cin >> selectedSize;
-    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) {
+    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) { // check whether provided size is within accepted range
         return selectedSize;
     } else {
-        return 1;
+        return 1; // otherwise return 1
     }
 }
 

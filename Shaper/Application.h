@@ -6,6 +6,7 @@ class Application
 
     Console console;
 
+    // ASCII codes of keys returned by _getch
     enum Keys {
         UP    = 72,
         DOWN  = 80,
