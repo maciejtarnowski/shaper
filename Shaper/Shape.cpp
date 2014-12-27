@@ -1,12 +1,12 @@
 #include "stdafx.h"
 
-// constructor with initial character
-Shape::Shape(char character) : character(character) {
+// default constructor
+Shape::Shape() : character('&') {
     this->setDefaultAttributes();
 }
 
-// default constructor
-Shape::Shape() : character('&') {
+// constructor with initial character
+Shape::Shape(char character) : character(character) {
     this->setDefaultAttributes();
 }
 
@@ -15,16 +15,16 @@ void Shape::render()
     int posX = this->currentPosX,
         posY = this->currentPosY;
 
-    int upper = 0, middle = 0, lower = 0;
+    int upper = 0, middle = 0, lower = 0; // initialize variables here to be able to access them outside loops
 
     for (upper = 0; upper < size; upper++) {
-        console.printChar(this->character, posX + upper, posY + upper); // go 1 down and 1 right in each iteration
+        console.printChar(this->character, posX + upper, posY + upper); // upper arm, go 1 down and 1 right in each iteration
     }
     for (middle = 0; middle <= (size * console.getFontRatio()); middle++) {
         console.printChar(this->character, posX + upper + middle, posY + upper); // horizontal bar
     }
     for (lower = 0; lower < size; lower++) {
-        console.printChar(this->character, posX + upper - 1 - lower, posY + upper + 1 + lower); // go 1 down and 1 left in each iteration
+        console.printChar(this->character, posX + upper - 1 - lower, posY + upper + 1 + lower); // lower arm, go 1 down and 1 left in each iteration
     }
 }
 
@@ -52,6 +52,17 @@ void Shape::resize(int delta)
     }
 }
 
+void Shape::setInitialSize(int size)
+{
+    console.updateSize();
+    this->size        = size;
+    this->currentPosX = 0;
+    this->currentPosY = console.getHeight() - (this->size * 2) - 1;
+}
+
+// -- private
+
+// predict collision after move or resize
 bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
 {
     console.updateSize();
@@ -67,22 +78,14 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
     return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() < this->currentPosX + deltaX + width;
 }
 
-void Shape::setInitialSize(int size)
-{
-    console.updateSize();
-    this->size        = size;
-    this->currentPosX = 0;
-    this->currentPosY = console.getHeight() - (this->size * 2) - 1;
-}
-
 int Shape::getHeight()
 {
-    return this->size * 2 + 1;
+    return this->size * 2 + 1; // two arms of size height + horizontal bar
 }
 
 int Shape::getWidth()
 {
-    return this->size + 1 + (this->size * console.getFontRatio());
+    return this->size + 1 + (this->size * console.getFontRatio()); // horizontal bar's length depends on font height/width ratio
 }
 
 void Shape::setDefaultAttributes()

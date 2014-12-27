@@ -29,27 +29,7 @@ void Application::run()
     }
 }
 
-char Application::askForCharToDraw()
-{
-    console.clear();
-    char selectedChar = '&';
-    cout << "Podaj znak do narysowania figury: ";
-    cin >> selectedChar;
-    return selectedChar;
-}
-
-int Application::askForInitialSize()
-{
-    console.clear();
-    int selectedSize = 1;
-    cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
-    cin >> selectedSize;
-    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) {
-        return selectedSize;
-    } else {
-        return 1;
-    }
-}
+// -- private
 
 bool Application::handleKeyPress(char key)
 {
@@ -84,6 +64,28 @@ bool Application::handleKeyPress(char key)
     }
 
     return true; // true means continue execution
+}
+
+char Application::askForCharToDraw()
+{
+    console.clear();
+    char selectedChar = '&';
+    cout << "Podaj znak do narysowania figury: ";
+    cin >> selectedChar;
+    return selectedChar;
+}
+
+int Application::askForInitialSize()
+{
+    console.clear();
+    int selectedSize = 1;
+    cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
+    cin >> selectedSize;
+    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) {
+        return selectedSize;
+    } else {
+        return 1;
+    }
 }
 
 // handy helper to render the shape

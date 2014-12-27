@@ -27,25 +27,10 @@ int Console::getHeight()
     return this->height - 1;
 }
 
-void Console::gotoXY(int x, int y)
-{
-    COORD coord;
-    coord.X = x;
-    coord.Y = y;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
 void Console::printChar(char character, int x, int y)
 {
     this->gotoXY(x, y);
     cout << character;
-}
-
-COORD Console::getFontSize()
-{
-    CONSOLE_FONT_INFO cfi;
-    GetCurrentConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), false, &cfi);
-    return cfi.dwFontSize;
 }
 
 float Console::getFontRatio()
@@ -68,4 +53,21 @@ void Console::printHelp()
 void Console::clear()
 {
     system("cls");
+}
+
+// -- private
+
+void Console::gotoXY(int x, int y)
+{
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+COORD Console::getFontSize()
+{
+    CONSOLE_FONT_INFO cfi;
+    GetCurrentConsoleFont(GetStdHandle(STD_OUTPUT_HANDLE), false, &cfi);
+    return cfi.dwFontSize;
 }
