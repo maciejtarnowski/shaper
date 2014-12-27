@@ -1,7 +1,5 @@
 #include "stdafx.h"
 
-using namespace std;
-
 // constructor with initial character
 Shape::Shape(char character) : character(character) {
     this->setDefaultAttributes();
