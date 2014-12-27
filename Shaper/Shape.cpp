@@ -43,7 +43,7 @@ void Shape::resize(int delta)
     if (this->size + delta < 1 || this->size + delta > 15) {
         return;
     }
-    if (!this->willCollide(this->currentPosX, this->currentPosY, delta)) {
+    if (!this->willCollide(0, 0, delta)) {
         this->size += delta;
     }
 }
