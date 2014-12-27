@@ -51,7 +51,8 @@ COORD Console::getFontSize()
 float Console::getFontRatio()
 {
     COORD fontSize = this->getFontSize();
-    return (float)fontSize.Y / (float)fontSize.X;
+    float ratio = (float)fontSize.Y / (float)fontSize.X;
+    return (ratio < 1 ? 1 : ratio);
 }
 
 void Console::printHelp()
