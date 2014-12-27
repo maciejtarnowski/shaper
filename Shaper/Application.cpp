@@ -6,8 +6,7 @@ Application::Application()
 {
     console.updateSize();
     this->selectedChar = this->askForCharToDraw();
-    int size = this->askForInitialSize();
-    this->shape.setInitialAttributes(0, console.getHeight() - (size * 2) - 1, size);
+    this->shape.setInitialSize(this->askForInitialSize());
     this->shape.setCharacter(this->selectedChar);
 
     system("cls");
@@ -43,9 +42,9 @@ int Application::askForInitialSize()
 {
     system("cls");
     int selectedSize = 1;
-    cout << "Podaj poczatkowy rozmiar figury (1 - 15) [1]: ";
+    cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
     cin >> selectedSize;
-    if (selectedSize >= 1 && selectedSize <= 15) {
+    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) {
         return selectedSize;
     } else {
         return 1;

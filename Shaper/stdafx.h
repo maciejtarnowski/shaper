@@ -17,8 +17,8 @@
 #include <io.h>
 #include <string>
 
-#include "Shape.h"
 #include "Console.h"
+#include "Shape.h"
 #include "Application.h"
 
 

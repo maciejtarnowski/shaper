@@ -2,26 +2,32 @@
 
 using namespace std;
 
-Shape::Shape(char character) : character(character) {}
+// constructor with initial character
+Shape::Shape(char character) : character(character) {
+    this->setDefaultAttributes();
+}
 
-Shape::Shape() : character('&') {}
+// default constructor
+Shape::Shape() : character('&') {
+    this->setDefaultAttributes();
+}
 
 void Shape::render()
 {
-    Console console;
     int posX = this->currentPosX,
         posY = this->currentPosY;
+
     int upper = 0, middle = 0, lower = 0;
+
     for (upper = 0; upper < size; upper++) {
         console.printChar(this->character, posX + upper, posY + upper); // go 1 down and 1 right in each iteration
     }
     for (middle = 0; middle <= (size * console.getFontRatio()); middle++) {
-        console.printChar(this->character, posX + upper + middle, posY + upper);
+        console.printChar(this->character, posX + upper + middle, posY + upper); // horizontal bar
     }
     for (lower = 0; lower < size; lower++) {
-        console.printChar(this->character, posX + upper - 1 - lower, posY + upper + 1 + lower);
+        console.printChar(this->character, posX + upper - 1 - lower, posY + upper + 1 + lower); // go 1 down and 1 left in each iteration
     }
-    return;
 }
 
 void Shape::setCharacter(char character)
@@ -32,7 +38,7 @@ void Shape::setCharacter(char character)
 // move shape by vector
 void Shape::move(int deltaX, int deltaY)
 {
-    if (!this->willCollide(deltaX, deltaY, 0)) {
+    if (!this->willCollide(deltaX, deltaY, 0)) { // predict collision
         this->currentPosX += deltaX;
         this->currentPosY += deltaY;
     }
@@ -40,32 +46,50 @@ void Shape::move(int deltaX, int deltaY)
 
 void Shape::resize(int delta)
 {
-    if (this->size + delta < 1 || this->size + delta > 15) {
+    if (this->size + delta < Shape::MIN_SIZE || this->size + delta > Shape::MAX_SIZE) { // check whether size is within accepted range
         return;
     }
-    if (!this->willCollide(0, 0, delta)) {
+    if (!this->willCollide(0, 0, delta)) { // predict collision
         this->size += delta;
     }
 }
 
 bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
 {
-    Console console;
     console.updateSize();
 
-    int height = (this->size + deltaSize) * 2 + 1,
+    int height = (this->size + deltaSize) * 2 + 1, // two arms
         width  = (this->size + deltaSize) + 1 + (this->size + deltaSize) * console.getFontRatio();
 
     if (this->currentPosX + deltaX < 0 || this->currentPosY + deltaY < 0) {
-        return true;
+        return true; // report collision behind top-left corner of the screen
     }
 
-    return !(console.getHeight() >= this->currentPosY + deltaY + height && console.getWidth() >= this->currentPosX + deltaX + width);
+    // it collides if: console height is less then current Y possition + shape height + delta Y OR console width is less then current X possition + shape width + delta X
+    return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() < this->currentPosX + deltaX + width;
 }
 
-void Shape::setInitialAttributes(int x, int y, int size)
+void Shape::setInitialSize(int size)
 {
-    this->currentPosX = x;
-    this->currentPosY = y;
+    console.updateSize();
     this->size        = size;
+    this->currentPosX = 0;
+    this->currentPosY = console.getHeight() - (this->size * 2) - 1;
+}
+
+int Shape::getHeight()
+{
+    return this->size * 2 + 1;
+}
+
+int Shape::getWidth()
+{
+    return this->size + 1 + (this->size * console.getFontRatio());
+}
+
+void Shape::setDefaultAttributes()
+{
+    this->currentPosX = 0;
+    this->currentPosY = 0;
+    this->size        = 1;
 }
