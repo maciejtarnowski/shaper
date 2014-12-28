@@ -20,6 +20,3 @@
 #include "Console.h"
 #include "Shape.h"
 #include "Application.h"
-
-
-// TODO: reference additional headers your program requires here
