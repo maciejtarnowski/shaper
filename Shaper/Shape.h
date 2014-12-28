@@ -23,7 +23,7 @@ public:
     void setInitialSize(int size);
 private:
     bool willCollide(int deltaX, int deltaY, int deltaSize);
-    int getHeight();
-    int getWidth();
+    int getHeight(int deltaSize = 0);
+    int getWidth(int deltaSize = 0);
     void setDefaultAttributes();
 };

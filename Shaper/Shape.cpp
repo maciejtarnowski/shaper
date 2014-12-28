@@ -57,7 +57,7 @@ void Shape::setInitialSize(int size)
     console.updateSize();
     this->size        = size;
     this->currentPosX = 0;
-    this->currentPosY = console.getHeight() - (this->size * 2) - 1;
+    this->currentPosY = console.getHeight() - this->getHeight();
 }
 
 // -- private
@@ -67,8 +67,8 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
 {
     console.updateSize();
 
-    int height = (this->size + deltaSize) * 2 + 1, // two arms
-        width  = (this->size + deltaSize) + 1 + (this->size + deltaSize) * console.getFontRatio();
+    int height = this->getHeight(deltaSize), // two arms
+        width  = this->getWidth(deltaSize);
 
     if (this->currentPosX + deltaX < 0 || this->currentPosY + deltaY < 0) {
         return true; // report collision behind top-left corner of the screen
@@ -78,14 +78,14 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
     return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() < this->currentPosX + deltaX + width;
 }
 
-int Shape::getHeight()
+int Shape::getHeight(int deltaSize = 0)
 {
-    return this->size * 2 + 1; // two arms of size height + horizontal bar
+    return (this->size + deltaSize) * 2 + 1; // two arms of size height + horizontal bar
 }
 
-int Shape::getWidth()
+int Shape::getWidth(int deltaSize = 0)
 {
-    return this->size + 1 + (this->size * console.getFontRatio()); // horizontal bar's length depends on font height/width ratio
+    return this->size + 1 + ((this->size + deltaSize) * console.getFontRatio()); // horizontal bar's length depends on font height/width ratio
 }
 
 void Shape::setDefaultAttributes()
