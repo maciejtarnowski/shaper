@@ -6,4 +6,3 @@ int _tmain(int argc, _TCHAR* argv[])
     app.run();
 	return EXIT_SUCCESS;
 }
-
