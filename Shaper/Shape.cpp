@@ -78,12 +78,12 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
     return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() < this->currentPosX + deltaX + width;
 }
 
-int Shape::getHeight(int deltaSize = 0)
+int Shape::getHeight(int deltaSize)
 {
     return (this->size + deltaSize) * 2 + 1; // two arms of size height + horizontal bar
 }
 
-int Shape::getWidth(int deltaSize = 0)
+int Shape::getWidth(int deltaSize)
 {
     return this->size + 1 + ((this->size + deltaSize) * console.getFontRatio()); // horizontal bar's length depends on font height/width ratio
 }
