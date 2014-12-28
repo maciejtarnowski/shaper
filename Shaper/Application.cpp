@@ -70,23 +70,27 @@ bool Application::handleKeyPress(char key)
 char Application::askForCharToDraw()
 {
     console.clear();
-    char selectedChar = '&';
+    char selectedChar = Shape::DEFAULT_CHAR; // set to shape's default
     cout << "Podaj znak do narysowania figury: ";
     cin >> selectedChar;
+    cin.clear(); // clear cin buffer so it is empty before another read
+    cin.ignore(INT_MAX, '\n'); // see http://stackoverflow.com/questions/5131647/why-would-we-call-cin-clear-and-cin-ignore-after-reading-input
     return selectedChar;
 }
 
 int Application::askForInitialSize()
 {
-    console.clear();
-    int selectedSize = 1; // default value is 1
-    cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [1]: ";
-    cin >> selectedSize;
-    if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) { // check whether provided size is within accepted range
-        return selectedSize;
-    } else {
-        return 1; // otherwise return 1
+    int selectedSize;
+    while (true) {
+        console.clear();
+        selectedSize = Shape::DEFAULT_SIZE; // reset value to shape's default
+        cout << "Podaj poczatkowy rozmiar figury (" << Shape::MIN_SIZE << " - " << Shape::MAX_SIZE << ") [" << selectedSize << "]: ";
+        cin >> selectedSize;
+        if (selectedSize >= Shape::MIN_SIZE && selectedSize <= Shape::MAX_SIZE) { // check whether provided size is within accepted range
+            break;
+        }
     }
+    return selectedSize;
 }
 
 // handy helper to render the shape

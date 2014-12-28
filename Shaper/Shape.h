@@ -11,8 +11,11 @@ class Shape
     Console console;
 
 public:
-    static int const MIN_SIZE = 1,
-                     MAX_SIZE = 15;
+    static int const MIN_SIZE     = 1,
+                     MAX_SIZE     = 15,
+                     DEFAULT_SIZE = 1;
+
+    static char const DEFAULT_CHAR = '&';
 
     Shape();
     Shape(char character);
