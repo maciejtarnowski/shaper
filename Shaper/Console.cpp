@@ -24,7 +24,7 @@ int Console::getWidth()
 
 int Console::getHeight()
 {
-    return this->height - 1;
+    return this->height - 1; // save one row for help message
 }
 
 void Console::printChar(char character, int x, int y)
@@ -37,22 +37,23 @@ float Console::getFontRatio()
 {
     COORD fontSize = this->getFontSize();
     float ratio = (float)fontSize.Y / (float)fontSize.X;
-    return (ratio < 1 ? 1 : ratio);
+    return (ratio < 1 ? 1 : ratio); // limit ratio to <1;Inf)
 }
 
 void Console::printHelp()
 {
     this->updateSize();
-    this->gotoXY(0, this->getHeight());
+    this->gotoXY(0, this->getHeight()); // go to last row
+
     HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(h, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE);
+    SetConsoleTextAttribute(h, BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE); // black text on white background
     cout << "strzalki - ruch" << "\t\t" << "+ / - - zmiana rozmiaru figury" << "\t\t" << "ESC - wyjscie";
-    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // back to standard white text on black background
 }
 
 void Console::clear()
 {
-    system("cls");
+    system("cls"); // easiest way to clear console
 }
 
 // -- private
