@@ -13,7 +13,7 @@ Application::Application()
     console.clear();
 
     this->renderShape(); // initial render
-    this->console.printHelp(); // print bottom help row
+    this->console.printHelp(); // initial print bottom help row
 }
 
 void Application::run()
@@ -25,8 +25,8 @@ void Application::run()
 
         console.clear();
 
-        this->renderShape(); // initial render of the shape
-        this->console.printHelp(); // initial help print
+        this->renderShape(); // render new frame
+        this->console.printHelp(); // print bottom help row
     }
 }
 
