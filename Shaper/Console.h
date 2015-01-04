@@ -2,6 +2,7 @@
 
 class Console
 {
+// -- private
     int width,
         height;
 

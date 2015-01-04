@@ -2,6 +2,7 @@
 
 class Shape
 {
+// -- private
     char character;
 
     int currentPosX,
