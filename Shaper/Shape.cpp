@@ -75,7 +75,7 @@ bool Shape::willCollide(int deltaX, int deltaY, int deltaSize)
     }
 
     // it collides if: console height is less then current Y possition + shape height + delta Y OR console width is less then current X possition + shape width + delta X
-    return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() < this->currentPosX + deltaX + width;
+    return console.getHeight() < this->currentPosY + deltaY + height || console.getWidth() <= this->currentPosX + deltaX + width;
 }
 
 int Shape::getHeight(int deltaSize)
